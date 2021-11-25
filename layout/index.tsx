@@ -8,7 +8,7 @@ const Layout = () => {
   return (
     <AntLayout>
       <Head>
-        <title>Gitlab Review App by 90Pixel</title>
+        <title>Gitlab Reviewer by 90Pixel</title>
       </Head>
       <Header />
       <ContentWrapper>Layout</ContentWrapper>

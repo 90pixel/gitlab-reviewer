@@ -1,14 +1,18 @@
 import { styled } from '@stitches/react';
 import { BranchesOutlined } from '@ant-design/icons';
 import { Layout } from 'antd';
+import Navigation from './Navigation';
 
 const { Header: AntHeader } = Layout;
 
 const Header = () => {
   return (
     <CustomHeader>
-      <BranchesOutlined />
-      <span>90pixel Gitlab Review App</span>
+      <LogoSection>
+        <BranchesOutlined />
+        <span>Gitlab Reviewer</span>
+      </LogoSection>
+      <Navigation />
     </CustomHeader>
   );
 };
@@ -20,5 +24,8 @@ const CustomHeader = styled(AntHeader, {
   p: 40,
   display: 'flex',
   alignItems: 'center',
+  justifyContent: 'space-between',
   fontSize: 38,
 });
+
+const LogoSection = styled('div', {});
