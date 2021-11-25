@@ -5,7 +5,7 @@ export const globalStyles = globalCss({
     margin: 0,
     padding: 0,
     boxSizing: 'border-box',
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: '"Montserrat", sans-serif',
   },
   button: {
     background: 'none',
@@ -17,5 +17,9 @@ export const globalStyles = globalCss({
   },
   'ol, ul, dl': {
     mb: '0 !important',
+  },
+  a: {
+    color: '#fff',
+    pointerEvents: 'cursor',
   },
 });
