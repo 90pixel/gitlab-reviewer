@@ -21,5 +21,8 @@ export const globalStyles = globalCss({
   a: {
     color: '#fff',
     pointerEvents: 'cursor',
+    '&:hover': {
+      color: '#fff',
+    },
   },
 });
