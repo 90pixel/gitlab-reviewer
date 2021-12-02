@@ -14,4 +14,6 @@ export default Container;
 const StyledContainer = styled('div', {
   maxWidth: 1200,
   margin: '0 auto',
+  width: '100%',
+  height: '100%',
 });
