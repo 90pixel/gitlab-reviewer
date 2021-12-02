@@ -1,9 +1,11 @@
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import Layout from 'layout';
 
 const Home: NextPage = () => {
+  const { push } = useRouter();
   const handleLogin = () => {
-    return console.log('xx');
+    return push('/login');
   };
   return (
     <Layout>
