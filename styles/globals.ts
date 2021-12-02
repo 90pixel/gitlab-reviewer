@@ -7,6 +7,9 @@ export const globalStyles = globalCss({
     boxSizing: 'border-box',
     fontFamily: '"Montserrat", sans-serif',
   },
+  'html,body': {
+    background: '#f0f2f5',
+  },
   button: {
     background: 'none',
     border: 'none',
