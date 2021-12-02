@@ -1,7 +1,10 @@
-import { useState } from 'react';
+/* eslint-disable @typescript-eslint/no-floating-promises */
+import { useState, useEffect } from 'react';
 import { styled } from 'stitches.config';
 import { Input, Form, Button, Typography } from 'antd';
 import TokenField from './TokenField';
+
+import { fetcher, endpoints } from 'utils';
 
 const Login = () => {
   const loginError = true;
@@ -9,6 +12,18 @@ const Login = () => {
   const onFinish = (values: any) => {
     console.log(values);
   };
+
+  useEffect(() => {
+    const getTest = async () => {
+      const test = await fetcher({
+        resource: endpoints.user,
+      });
+      return test;
+    };
+
+    getTest();
+  }, []);
+
   return (
     <CustomForm
       name="basic"
