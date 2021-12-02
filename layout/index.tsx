@@ -11,18 +11,22 @@ interface ILayout {
 
 const Layout: React.FC<ILayout> = ({ children }) => {
   return (
-    <AntLayout>
+    <CustomLayout style={{ height: '100vh' }}>
       <Head>
         <title>Gitlab Reviewer by 90Pixel</title>
       </Head>
       <Header />
       <ContentWrapper>{children}</ContentWrapper>
-    </AntLayout>
+    </CustomLayout>
   );
 };
 
 export default Layout;
 
+const CustomLayout = styled(AntLayout, {
+  height: '100vh',
+});
+
 const ContentWrapper = styled(Container, {
-  // marginTop: 40,
+  marginTop: 40,
 });
