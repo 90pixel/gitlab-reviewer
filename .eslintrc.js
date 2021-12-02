@@ -16,6 +16,7 @@ module.exports = {
     project: './tsconfig.json',
   },
   rules: {
+    'max-len': ['error', { code: '100' }],
     'jsx-a11y/alt-text': 'off',
     'import/no-anonymous-default-export': 'off',
     'react/react-in-jsx-scope': 'off',
