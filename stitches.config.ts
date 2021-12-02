@@ -16,6 +16,7 @@ export const {
   theme: {
     colors: {
       primary: '#fa4778',
+      warning: '#ffc107',
       black: '#292D32',
       white: '#FFFFFF',
       red: '#FC5E49',
