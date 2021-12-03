@@ -36,6 +36,7 @@ const Login = () => {
         setError('Token hatalı.');
       }
     } catch {
+      // https://22 gibi veya https://gitlab.123.net gibi şeylerde de bu hatayı alıyoruz.
       setError('Geçerli bir endpoint girilmedi.');
     }
   };
@@ -52,7 +53,7 @@ const Login = () => {
           },
           {
             pattern: new RegExp(/https?:\/\//g),
-            message: 'url https formatı ile girilmeli',
+            message: 'URL https formatı ile girilmeli',
           },
         ]}
       >
