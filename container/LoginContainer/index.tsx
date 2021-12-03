@@ -1,15 +1,21 @@
-import { useState } from 'react';
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { styled } from 'stitches.config';
 import { Input, Form, Button, Typography } from 'antd';
 import TokenField from './TokenField';
 
-import { fetcher, endpoints } from 'utils';
+// import { fetcher, endpoints } from 'utils';
 
 const Login = () => {
   const loginError = true;
-  const [gitlabUrl, setGitlabUrl] = useState('');
-  const onFinish = (values: any) => {
-    console.log(values.url);
+
+  const onFinish = async (values: any) => {
+    const request = await fetch(`${values.url}/api/v4/user`, {
+      headers: {
+        'private-token': values.token,
+      },
+    });
+    const response = await request.json();
+    console.log(response);
   };
 
   return (
@@ -34,14 +40,10 @@ const Login = () => {
           },
         ]}
       >
-        <Input
-          onChange={(e) => {
-            setGitlabUrl(e.target.value);
-          }}
-        />
+        <Input />
       </Form.Item>
 
-      <TokenField gitlabUrl={gitlabUrl} />
+      <TokenField />
 
       {/* <Form.Item
         label="Yenileme Süresi"
