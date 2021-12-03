@@ -1,13 +1,8 @@
-import { FC } from 'react';
 import { Input, Form, Tooltip } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { styled } from 'stitches.config';
 
-interface ITokenField {
-  gitlabUrl: string;
-}
-
-const TokenField: FC<ITokenField> = () => {
+const TokenField = () => {
   return (
     <Form.Item
       label={
