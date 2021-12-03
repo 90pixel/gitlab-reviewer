@@ -41,6 +41,8 @@ module.exports = {
         '@typescript-eslint/no-explicit-any': 'off',
         '@next/next/no-img-element': 'off',
         '@typescript-eslint/require-await': 'off',
+        '@typescript-eslint/no-floating-promises': 'off',
+        '@typescript-eslint/no-unsafe-member-access': 'off',
       },
     },
   ],

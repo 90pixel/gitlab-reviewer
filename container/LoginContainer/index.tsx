@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { styled } from 'stitches.config';
 import { Input, Form, Button, Typography } from 'antd';
 import TokenField from './TokenField';
@@ -10,19 +9,8 @@ const Login = () => {
   const loginError = true;
   const [gitlabUrl, setGitlabUrl] = useState('');
   const onFinish = (values: any) => {
-    console.log(values);
+    console.log(values.url);
   };
-
-  useEffect(() => {
-    const getTest = async () => {
-      const test = await fetcher({
-        resource: endpoints.user,
-      });
-      return test;
-    };
-
-    getTest();
-  }, []);
 
   return (
     <CustomForm
