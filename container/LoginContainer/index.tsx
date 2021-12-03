@@ -4,15 +4,20 @@ import { useRouter } from 'next/router';
 import { setCookie } from 'nookies';
 import { styled } from 'stitches.config';
 import { Input, Form, Button, Typography } from 'antd';
+import { FormWrapper } from 'components';
 import TokenField from './TokenField';
 
 // import { fetcher, endpoints } from 'utils';
 
+interface IValues {
+  url: string;
+  token: string;
+}
 const Login = () => {
   const [error, setError] = useState('');
   const { push } = useRouter();
 
-  const onFinish = async (values: any) => {
+  const onFinish = async (values: IValues) => {
     try {
       const request = await fetch(`${values.url}/api/v4/user`, {
         headers: {
@@ -34,16 +39,7 @@ const Login = () => {
   };
 
   return (
-    <CustomForm
-      name="basic"
-      labelCol={{
-        span: 8,
-      }}
-      wrapperCol={{
-        span: 16,
-      }}
-      onFinish={onFinish}
-    >
+    <FormWrapper onFinish={onFinish}>
       <Form.Item
         label="GitLab URL:"
         name="url"
@@ -75,16 +71,11 @@ const Login = () => {
           {error && <Typography.Text type="danger">{error}</Typography.Text>}
         </SubmitBtn>
       </Form.Item>
-    </CustomForm>
+    </FormWrapper>
   );
 };
 
 export default Login;
-
-const CustomForm = styled(Form, {
-  maxWidth: 600,
-  margin: '0 auto',
-});
 
 const SubmitBtn = styled('div', {
   display: 'flex',
