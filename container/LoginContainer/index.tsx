@@ -22,6 +22,8 @@ const Login = () => {
       const response = await request.json();
       if (response.name) {
         console.log(response);
+        setCookie(null, 'privateToken', values.token);
+        setCookie(null, 'gitlabUrl', values.url);
         // push('/dashboard');
       } else {
         setError('Token hatalı.');
