@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { setCookie } from 'nookies';
@@ -6,30 +5,33 @@ import { styled } from 'stitches.config';
 import { Input, Form, Button, Typography } from 'antd';
 import { FormWrapper } from 'components';
 import TokenField from './TokenField';
-
-// import { fetcher, endpoints } from 'utils';
+import { USER } from 'types/USER';
+import { endpoints } from 'utils';
 
 interface IValues {
   url: string;
   token: string;
 }
+
 const Login = () => {
   const [error, setError] = useState('');
   const { push } = useRouter();
 
   const onFinish = async (values: IValues) => {
     try {
-      const request = await fetch(`${values.url}/api/v4/user`, {
+      const request = await fetch(`${values.url}/api/v4/${endpoints.user}`, {
         headers: {
           'private-token': values.token,
         },
       });
-      const response = await request.json();
+      // JSON için bu kuralı kapatıyorum
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const response: USER = await request.json();
+
       if (response.name) {
-        console.log(response);
         setCookie(null, 'privateToken', values.token);
         setCookie(null, 'gitlabUrl', values.url);
-        // push('/dashboard');
+        push('/dashboard');
       } else {
         setError('Token hatalı.');
       }
