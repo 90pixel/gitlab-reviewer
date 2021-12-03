@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Layout from 'layout';
 
-const Home: NextPage = () => {
+const Dashboard: NextPage = () => {
   const { push } = useRouter();
   const handleLogin = () => {
     return push('/login');
@@ -14,4 +14,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Dashboard;
