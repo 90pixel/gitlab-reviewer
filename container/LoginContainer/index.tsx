@@ -31,7 +31,7 @@ const Login = () => {
       if (response.name) {
         setCookie(null, 'privateToken', values.token);
         setCookie(null, 'gitlabUrl', values.url);
-        push('/dashboard');
+        push('/');
       } else {
         setError('Token hatalı.');
       }
