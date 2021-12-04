@@ -5,7 +5,6 @@ import { styled } from 'stitches.config';
 import { Input, Form, Button, Typography } from 'antd';
 import { FormWrapper } from 'components';
 import TokenField from './TokenField';
-import { USER } from 'types/USER';
 import { fetchUser } from 'utils';
 
 interface IValues {
@@ -18,10 +17,7 @@ const Login = () => {
   const { push } = useRouter();
 
   const onFinish = async (values: IValues) => {
-    const response: { error: string } | USER = await fetchUser(
-      values.url,
-      values.token
-    );
+    const response = await fetchUser(values.url, values.token);
 
     if ('error' in response) {
       setError(response.error);
