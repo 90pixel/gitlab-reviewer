@@ -15,6 +15,7 @@ const Navigation = () => {
       <Link href="/" passHref>
         <a>Home</a>
       </Link>
+      <button>Çıkış</button>
 
       <Tooltip title={user?.name}>
         <Badge count={2}>
@@ -29,4 +30,10 @@ export default Navigation;
 
 const StyledNavigation = styled('nav', {
   fontSize: 20,
+  'button,a': {
+    ml: 10,
+  },
+  '.ant-badge': {
+    ml: 10,
+  },
 });
