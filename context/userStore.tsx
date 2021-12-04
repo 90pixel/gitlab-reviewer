@@ -18,10 +18,14 @@ const UserProvider: FC<IUserProvider> = ({ children }) => {
 
   useEffect(() => {
     const getUser = async () => {
-      const response = await fetcher({ resource: endpoints.user });
-      console.log(response);
+      const response: USER | null = await fetcher({
+        resource: endpoints.user,
+      });
+      setUser(response);
     };
-    getUser();
+    if (gitlabUrl && privateToken) {
+      getUser();
+    }
   }, [gitlabUrl, privateToken]);
 
   const values = { user, setUser };
