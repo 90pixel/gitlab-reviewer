@@ -6,7 +6,7 @@ import { Input, Form, Button, Typography } from 'antd';
 import { FormWrapper } from 'components';
 import TokenField from './TokenField';
 import { USER } from 'types/USER';
-import { endpoints } from 'utils';
+import { fetchUser } from 'utils';
 
 interface IValues {
   url: string;
@@ -18,26 +18,17 @@ const Login = () => {
   const { push } = useRouter();
 
   const onFinish = async (values: IValues) => {
-    try {
-      const request = await fetch(`${values.url}/api/v4/${endpoints.user}`, {
-        headers: {
-          'private-token': values.token,
-        },
-      });
-      // JSON için bu kuralı kapatıyorum
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const response: USER = await request.json();
+    const response: { error: string } | USER = await fetchUser(
+      values.url,
+      values.token
+    );
 
-      if (response.name) {
-        setCookie(null, 'privateToken', values.token);
-        setCookie(null, 'gitlabUrl', values.url);
-        push('/');
-      } else {
-        setError('Token hatalı.');
-      }
-    } catch {
-      // https://22 gibi veya https://gitlab.123.net gibi şeylerde de bu hatayı alıyoruz.
-      setError('Geçerli bir endpoint girilmedi.');
+    if ('error' in response) {
+      setError(response.error);
+    } else {
+      setCookie(null, 'privateToken', values.token);
+      setCookie(null, 'gitlabUrl', values.url);
+      push('/');
     }
   };
 
