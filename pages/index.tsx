@@ -1,15 +1,15 @@
+import { useContext } from 'react';
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
+
 import Layout from 'layout';
+import { UserContext } from 'context';
 
 const Dashboard: NextPage = () => {
-  const { push } = useRouter();
-  const handleLogin = () => {
-    return push('/login');
-  };
+  const { user } = useContext(UserContext);
+
   return (
     <Layout>
-      <button onClick={handleLogin}>giriş yap</button>
+      <span>{user?.name}</span>
     </Layout>
   );
 };
