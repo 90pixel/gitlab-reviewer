@@ -25,6 +25,7 @@ export default Layout;
 
 const CustomLayout = styled(AntLayout, {
   height: '100vh',
+  background: '$gray200',
 });
 
 const ContentWrapper = styled(Container, {
