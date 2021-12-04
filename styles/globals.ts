@@ -8,12 +8,15 @@ export const globalStyles = globalCss({
     fontFamily: '"Montserrat", sans-serif',
   },
   'html,body': {
-    background: '#f0f2f5',
+    background: '$gray200',
   },
   button: {
     background: 'none',
     border: 'none',
     cursor: 'pointer',
+    '&:hover': {
+      color: '$red',
+    },
   },
   p: {
     mb: '0 !important',
@@ -22,10 +25,10 @@ export const globalStyles = globalCss({
     mb: '0 !important',
   },
   a: {
-    color: '#fff',
+    color: '$gray200',
     pointerEvents: 'cursor',
     '&:hover': {
-      color: '#fff',
+      color: '$red',
     },
   },
 });
