@@ -1,14 +1,15 @@
-import { parseCookies } from 'nookies';
+import { useContext } from 'react';
 import { styled } from '@stitches/react';
 import { BranchesOutlined } from '@ant-design/icons';
 import { Layout } from 'antd';
 import Link from 'next/link';
 import Navigation from './Navigation';
+import { UserContext } from 'context';
 
 const { Header: AntHeader } = Layout;
 
 const Header = () => {
-  const { gitlabUrl, privateToken } = parseCookies();
+  const { user } = useContext(UserContext);
   return (
     <CustomHeader>
       <Link href="/" passHref>
@@ -18,7 +19,7 @@ const Header = () => {
         </LogoSection>
       </Link>
       {/* Eğer token ve url yoksa navigasyon gösterilmeyecek */}
-      {!gitlabUrl && !privateToken && <Navigation />}
+      {user && <Navigation />}
     </CustomHeader>
   );
 };
