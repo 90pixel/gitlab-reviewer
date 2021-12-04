@@ -12,7 +12,7 @@ const Header = () => {
   const { user } = useContext(UserContext);
   return (
     <CustomHeader>
-      <Link href="/" passHref>
+      <Link href={user ? '/' : '/login'} passHref>
         <LogoSection>
           <BranchesOutlined />
           <span>Gitlab Reviewer</span>
@@ -29,6 +29,7 @@ export default Header;
 const CustomHeader = styled(AntHeader, {
   color: '#fff',
   p: 40,
+  height: 80,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
