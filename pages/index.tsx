@@ -1,7 +1,12 @@
 import type { NextPage } from 'next';
+import swr from 'swr';
 import Layout from 'layout';
 import { Table } from 'components';
+import { USER } from 'types/USER';
 
+interface IData {
+  data?: USER[];
+}
 const Dashboard: NextPage = () => {
   const dataSource = [
     {
@@ -35,6 +40,8 @@ const Dashboard: NextPage = () => {
       key: 'address',
     },
   ];
+
+  const { data }: IData = swr('/users');
 
   return (
     <Layout>
