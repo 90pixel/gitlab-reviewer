@@ -44,7 +44,6 @@ const UserProvider: FC<IUserProvider> = ({ children }) => {
       const response = await fetcher({
         resource: endpoints.user,
       });
-      console.log(response);
       if (response) {
         dispatch({ type: 'SET_USER', payload: response });
       }
