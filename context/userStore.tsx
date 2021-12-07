@@ -54,10 +54,6 @@ const UserProvider: FC<IUserProvider> = ({ children }) => {
     }
   }, [gitlabUrl, privateToken]);
 
-  // const values = { user, setUser };
-
-  console.log('state', state);
-
   return (
     <UserContext.Provider value={{ user: state.user, userDispatch: dispatch }}>
       {children}

@@ -15,7 +15,6 @@ const Navigation = () => {
     .join('');
 
   const handleLogout = async () => {
-    // TODO: Çıkış yapılınca user contexti de temizlenecek.
     destroyCookie(null, 'gitlabUrl');
     destroyCookie(null, 'privateToken');
     push('/login');
