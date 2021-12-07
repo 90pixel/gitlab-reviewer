@@ -1,16 +1,15 @@
 // /* eslint-disable max-len */
 import { parseCookies } from 'nookies';
 
-interface IFetcher {
-  resource: string;
+interface IOptions {
   customUrl?: string;
   customToken?: string;
 }
 
-const fetcher = async ({ resource, customUrl, customToken }: IFetcher) => {
+const fetcher = async (resource: string, options?: IOptions) => {
   const { privateToken, gitlabUrl } = parseCookies(null);
-  const computedUrl = customUrl || gitlabUrl;
-  const computedToken = customToken || privateToken;
+  const computedUrl = options?.customUrl || gitlabUrl;
+  const computedToken = options?.customToken || privateToken;
 
   try {
     const request = await fetch(`${computedUrl}/api/v4/${resource}`, {
@@ -18,6 +17,7 @@ const fetcher = async ({ resource, customUrl, customToken }: IFetcher) => {
         'private-token': computedToken,
         Accept: 'application/json',
         'Content-Type': 'application/json',
+        ...options,
       },
     });
     // istekten gelebilecek datayı bilmediğim için
@@ -31,5 +31,18 @@ const fetcher = async ({ resource, customUrl, customToken }: IFetcher) => {
     return error;
   }
 };
+
+// function fetcher<TResponse>(
+//   url: string,
+//   config: RequestInit
+// ): Promise<TResponse> {
+//   return (
+//     fetch(url, config)
+//       // When got a response call a `json` method on it
+//       .then((response) => response.json())
+//       // and return the result data.
+//       .then((data) => data as TResponse)
+//   );
+// }
 
 export default fetcher;
