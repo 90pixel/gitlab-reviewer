@@ -19,6 +19,9 @@ const Navigation = () => {
     destroyCookie(null, 'gitlabUrl');
     destroyCookie(null, 'privateToken');
     push('/login');
+    if (userDispatch) {
+      userDispatch({ type: 'CLEAR_USER' });
+    }
   };
 
   return (

@@ -4,7 +4,7 @@ import { USER } from 'types/USER';
 import { endpoints, fetcher } from 'utils';
 
 interface IUserContext {
-  user?: USER | null;
+  user?: USER | null | undefined;
   userDispatch?: Dispatch<UserAction>;
 }
 const UserContext = createContext<IUserContext>({ user: null });
@@ -14,12 +14,12 @@ interface IUserProvider {
 }
 
 interface UserState {
-  user: USER | null;
+  user: USER | null | undefined;
 }
 
 interface UserAction {
   type: 'CLEAR_USER' | 'SET_USER';
-  payload: USER | null;
+  payload?: USER | null | undefined;
 }
 
 function reducer(state: UserState, action: UserAction) {
