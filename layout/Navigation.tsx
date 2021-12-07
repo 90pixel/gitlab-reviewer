@@ -7,7 +7,7 @@ import { useUser } from 'hooks';
 
 const Navigation = () => {
   const { push } = useRouter();
-  const { user } = useUser();
+  const { user, userDispatch } = useUser();
 
   const firstLatters = user?.name
     .split(' ')

@@ -2,9 +2,9 @@ import { useContext } from 'react';
 import { UserContext } from 'context';
 
 const useUser = () => {
-  const { user } = useContext(UserContext);
+  const { user, userDispatch } = useContext(UserContext);
 
-  return { user };
+  return { user, userDispatch };
 };
 
 export default useUser;

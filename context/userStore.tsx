@@ -5,7 +5,7 @@ import { endpoints, fetcher } from 'utils';
 
 interface IUserContext {
   user?: USER | null;
-  dispatch?: Dispatch<UserAction>;
+  userDispatch?: Dispatch<UserAction>;
 }
 const UserContext = createContext<IUserContext>({ user: null });
 
@@ -59,7 +59,7 @@ const UserProvider: FC<IUserProvider> = ({ children }) => {
   console.log('state', state);
 
   return (
-    <UserContext.Provider value={{ user: state.user, dispatch }}>
+    <UserContext.Provider value={{ user: state.user, userDispatch: dispatch }}>
       {children}
     </UserContext.Provider>
   );
