@@ -3,6 +3,7 @@ import { UserContext } from 'context';
 
 const useUser = () => {
   const { user } = useContext(UserContext);
+
   return { user };
 };
 
