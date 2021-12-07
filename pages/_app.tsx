@@ -1,15 +1,19 @@
 import type { AppProps, AppContext } from 'next/app';
+import { SWRConfig } from 'swr';
 import 'styles/libraryStyles.css';
 import { globalStyles } from 'styles/globals';
 import { Providers } from 'context';
-import { routeProtection } from 'utils';
+import { routeProtection, fetcher } from 'utils';
 
 function MyApp({ Component, pageProps }: AppProps) {
   globalStyles();
+
   return (
-    <Providers>
-      <Component {...pageProps} />;
-    </Providers>
+    <SWRConfig value={{ fetcher }}>
+      <Providers>
+        <Component {...pageProps} />;
+      </Providers>
+    </SWRConfig>
   );
 }
 
