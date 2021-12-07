@@ -1,15 +1,16 @@
-import { useContext } from 'react';
 import { styled } from '@stitches/react';
 import { BranchesOutlined } from '@ant-design/icons';
 import { Layout } from 'antd';
+import { useUser } from 'hooks';
+
 import Link from 'next/link';
 import Navigation from './Navigation';
-import { UserContext } from 'context';
 
 const { Header: AntHeader } = Layout;
 
 const Header = () => {
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
+
   return (
     <CustomHeader>
       <Link href={user ? '/' : '/login'} passHref>

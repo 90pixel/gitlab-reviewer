@@ -1,12 +1,9 @@
-import { useContext } from 'react';
 import type { NextPage } from 'next';
-
 import Layout from 'layout';
-import { UserContext } from 'context';
+import { useUser } from 'hooks';
 
 const Dashboard: NextPage = () => {
-  const { user } = useContext(UserContext);
-
+  const { user } = useUser();
   return (
     <Layout>
       <span>{user?.name}</span>
