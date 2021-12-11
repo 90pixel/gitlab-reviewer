@@ -4,22 +4,22 @@ import { USER } from 'types/USER';
 import { endpoints, fetcher } from 'utils';
 
 interface IUserContext {
-  user?: USER | null | undefined;
+  user?: USER | undefined;
   userDispatch?: Dispatch<UserAction>;
 }
-const UserContext = createContext<IUserContext>({ user: null });
+const UserContext = createContext<IUserContext>({ user: undefined });
 
 interface IUserProvider {
   children?: React.ReactNode;
 }
 
 interface UserState {
-  user: USER | null | undefined;
+  user: USER | undefined;
 }
 
 interface UserAction {
   type: 'CLEAR_USER' | 'SET_USER';
-  payload?: USER | null | undefined;
+  payload?: USER | undefined;
 }
 
 function reducer(state: UserState, action: UserAction) {
@@ -28,7 +28,7 @@ function reducer(state: UserState, action: UserAction) {
       return { user: action.payload };
     }
     case 'CLEAR_USER': {
-      return { user: null };
+      return { user: undefined };
     }
     default:
       return state;
@@ -36,15 +36,15 @@ function reducer(state: UserState, action: UserAction) {
 }
 
 const UserProvider: FC<IUserProvider> = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, { user: null });
+  const [state, dispatch] = useReducer(reducer, { user: undefined });
   const { gitlabUrl, privateToken } = parseCookies();
 
   useEffect(() => {
     const getUser = async () => {
-      const response = await fetcher({
-        resource: endpoints.user,
-      });
-      if (response) {
+      const response: USER | undefined = await fetcher<USER | undefined>(
+        endpoints.user
+      );
+      if (response && response.name) {
         dispatch({ type: 'SET_USER', payload: response });
       }
     };
