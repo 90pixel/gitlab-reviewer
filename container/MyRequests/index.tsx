@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import swr, { SWRResponse } from 'swr';
 import { Table } from 'components';
 import { endpoints, fetcher } from 'utils';
@@ -7,9 +7,9 @@ import { RequestType } from 'types/REQUESTS';
 const Dashboard: FC = () => {
   const columns = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: 'Author',
+      dataIndex: 'author',
+      key: 'author',
     },
     {
       title: 'Age',
@@ -24,14 +24,45 @@ const Dashboard: FC = () => {
   ];
 
   const { data }: SWRResponse<RequestType[]> = swr(endpoints.request());
+  const [test, setTest] = useState<RequestType[] | []>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    if (data) {
-      console.log(data);
-    }
+    const getDetails = async () => {
+      if (data) {
+        const pool: RequestType[] = [];
+        for (const request of data) {
+          const { project_id, iid } = request;
+          const requestDetail: RequestType = await fetcher(
+            endpoints.requestDetail({
+              project_id,
+              iid,
+            })
+          );
+          pool.push(requestDetail);
+        }
+        setTest(pool);
+        setLoading(false);
+      }
+    };
+
+    getDetails();
   }, [data]);
 
-  return <div>{data && <Table dataSource={data} columns={columns} />}</div>;
+  return (
+    <div>
+      {test && (
+        <Table
+          dataSource={test?.map((item) => ({
+            ...item,
+            author: item.author.name,
+          }))}
+          columns={columns}
+          loading={loading}
+        />
+      )}
+    </div>
+  );
 };
 
 export default Dashboard;
