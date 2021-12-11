@@ -1,28 +1,10 @@
-import { useState, FC } from 'react';
-import swr from 'swr';
+import { FC, useEffect } from 'react';
+import swr, { SWRResponse } from 'swr';
 import { Table } from 'components';
-import { User } from 'types/USER';
-import { endpoints } from 'utils';
+import { endpoints, fetcher } from 'utils';
+import { RequestType } from 'types/REQUESTS';
 
-interface IData {
-  data?: User[];
-}
 const Dashboard: FC = () => {
-  const dataSource = [
-    {
-      key: '1',
-      name: 'Mike',
-      age: 32,
-      address: '10 Downing Street',
-    },
-    {
-      key: '2',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
-    },
-  ];
-
   const columns = [
     {
       title: 'Name',
@@ -41,13 +23,15 @@ const Dashboard: FC = () => {
     },
   ];
 
-  const { data: requestData }: IData = swr(endpoints.request());
+  const { data }: SWRResponse<RequestType[]> = swr(endpoints.request());
 
-  return (
-    <div>
-      <Table dataSource={requestData} columns={columns} />
-    </div>
-  );
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+    }
+  }, [data]);
+
+  return <div>{data && <Table dataSource={data} columns={columns} />}</div>;
 };
 
 export default Dashboard;
