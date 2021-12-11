@@ -4,7 +4,7 @@ import { Pipeline } from './PIPELINE';
 
 type MergeRequestStatus = 'can_be_merged' | 'unchecked';
 
-export interface MergeRequestType {
+export interface RequestType {
   id: number;
   iid: number;
   project_id: number;
