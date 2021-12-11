@@ -1,12 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 // /* eslint-disable max-len */
 import { parseCookies } from 'nookies';
 
 interface IOptions {
   customUrl?: string;
   customToken?: string;
+  requestInfo?: RequestInit;
 }
 
-const fetcher = async (resource: string, options?: IOptions) => {
+async function fetcher<T>(resource: string, options?: IOptions): Promise<T> {
   const { privateToken, gitlabUrl } = parseCookies(null);
   const computedUrl = options?.customUrl || gitlabUrl;
   const computedToken = options?.customToken || privateToken;
@@ -17,32 +19,18 @@ const fetcher = async (resource: string, options?: IOptions) => {
         'private-token': computedToken,
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        ...options,
       },
+      ...options?.requestInfo,
     });
     // istekten gelebilecek datayı bilmediğim için
     // ve any/unknown için bilinmeyen tiplerin diğer yerlerde
     // set edilmesine izin vermediği için type null belirledim
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const response: null = await request.json();
+    const response = (await request.json()) as T;
     return response;
-  } catch (error) {
+  } catch (error: any) {
     return error;
   }
-};
-
-// function fetcher<TResponse>(
-//   url: string,
-//   config: RequestInit
-// ): Promise<TResponse> {
-//   return (
-//     fetch(url, config)
-//       // When got a response call a `json` method on it
-//       .then((response) => response.json())
-//       // and return the result data.
-//       .then((data) => data as TResponse)
-//   );
-// }
+}
 
 export default fetcher;
