@@ -31,4 +31,15 @@ export const globalStyles = globalCss({
       color: '$red',
     },
   },
+  '.ant-spin-dot': {
+    width: '2em !important',
+    height: '2em !important',
+  },
+  '.ant-spin-dot-item': {
+    width: '20px !important',
+    height: '20px !important',
+  },
+  '.ant-spin-blur::after': {
+    opacity: '1 !important',
+  },
 });
