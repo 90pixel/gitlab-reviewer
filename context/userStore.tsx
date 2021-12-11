@@ -1,10 +1,10 @@
 import { createContext, useEffect, useReducer, FC, Dispatch } from 'react';
 import { parseCookies } from 'nookies';
-import { USER } from 'types/USER';
+import { User } from 'types/USER';
 import { endpoints, fetcher } from 'utils';
 
 interface IUserContext {
-  user?: USER | undefined;
+  user?: User | undefined;
   userDispatch?: Dispatch<UserAction>;
 }
 const UserContext = createContext<IUserContext>({ user: undefined });
@@ -14,12 +14,12 @@ interface IUserProvider {
 }
 
 interface UserState {
-  user: USER | undefined;
+  user: User | undefined;
 }
 
 interface UserAction {
   type: 'CLEAR_USER' | 'SET_USER';
-  payload?: USER | undefined;
+  payload?: User | undefined;
 }
 
 function reducer(state: UserState, action: UserAction) {
@@ -41,7 +41,7 @@ const UserProvider: FC<IUserProvider> = ({ children }) => {
 
   useEffect(() => {
     const getUser = async () => {
-      const response: USER | undefined = await fetcher<USER | undefined>(
+      const response: User | undefined = await fetcher<User | undefined>(
         endpoints.user
       );
       if (response && response.name) {
