@@ -1,5 +1,5 @@
 import { endpoints } from 'utils';
-import { USER } from 'types/USER';
+import { User } from 'types/USER';
 
 const fetchUser = async (gitlabUrl: string, token: string) => {
   try {
@@ -10,7 +10,7 @@ const fetchUser = async (gitlabUrl: string, token: string) => {
     });
     // JSON için bu kuralı kapatıyorum
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const response: USER = await request.json();
+    const response: User = await request.json();
 
     if (response.name) {
       return response;
