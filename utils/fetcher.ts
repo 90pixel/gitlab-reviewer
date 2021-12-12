@@ -8,13 +8,16 @@ interface IOptions {
   requestInfo?: RequestInit;
 }
 
-async function fetcher<T>(resource: string, options?: IOptions): Promise<T> {
+async function fetcher<T>(
+  resource: string,
+  options?: IOptions
+): Promise<{ response: T; totalPages: number }> {
   const { privateToken, gitlabUrl } = parseCookies(null);
   const computedUrl = options?.customUrl || gitlabUrl;
   const computedToken = options?.customToken || privateToken;
 
   try {
-    const request = await fetch(`${computedUrl}/api/v4/${resource}`, {
+    const request = await fetch(`${computedUrl}/api/v4${resource}`, {
       headers: {
         'private-token': computedToken,
         Accept: 'application/json',
@@ -22,12 +25,10 @@ async function fetcher<T>(resource: string, options?: IOptions): Promise<T> {
       },
       ...options?.requestInfo,
     });
-    // istekten gelebilecek datayı bilmediğim için
-    // ve any/unknown için bilinmeyen tiplerin diğer yerlerde
-    // set edilmesine izin vermediği için type null belirledim
-
+    // gitlabde toplam sayfa sayısı headerda geliyor.
+    const totalPages = Number(request.headers.get('x-total-pages'));
     const response = (await request.json()) as T;
-    return response;
+    return { response, totalPages };
   } catch (error: any) {
     return error;
   }
