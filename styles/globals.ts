@@ -42,4 +42,7 @@ export const globalStyles = globalCss({
   '.ant-spin-blur::after': {
     opacity: '1 !important',
   },
+  '.ant-spin-container': {
+    marginBottom: 25,
+  },
 });
