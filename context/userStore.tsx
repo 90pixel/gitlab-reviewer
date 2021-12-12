@@ -3,8 +3,10 @@ import { parseCookies } from 'nookies';
 import { User } from 'types/USER';
 import { endpoints, fetcher } from 'utils';
 
+type userType = User | undefined;
+
 interface IUserContext {
-  user?: User | undefined;
+  user?: userType;
   userDispatch?: Dispatch<UserAction>;
 }
 const UserContext = createContext<IUserContext>({ user: undefined });
@@ -14,12 +16,12 @@ interface IUserProvider {
 }
 
 interface UserState {
-  user: User | undefined;
+  user: userType;
 }
 
 interface UserAction {
   type: 'CLEAR_USER' | 'SET_USER';
-  payload?: User | undefined;
+  payload?: userType;
 }
 
 function reducer(state: UserState, action: UserAction) {
@@ -35,17 +37,20 @@ function reducer(state: UserState, action: UserAction) {
   }
 }
 
+interface ResponseType {
+  response: userType;
+  totalPages: number;
+}
+
 const UserProvider: FC<IUserProvider> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, { user: undefined });
   const { gitlabUrl, privateToken } = parseCookies();
 
   useEffect(() => {
     const getUser = async () => {
-      const response: User | undefined = await fetcher<User | undefined>(
-        endpoints.user
-      );
-      if (response && response.name) {
-        dispatch({ type: 'SET_USER', payload: response });
+      const response: ResponseType = await fetcher<userType>(endpoints.user);
+      if (response.response) {
+        dispatch({ type: 'SET_USER', payload: response.response });
       }
     };
     if (gitlabUrl && privateToken) {
