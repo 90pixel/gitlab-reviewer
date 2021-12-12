@@ -11,7 +11,7 @@ interface IOptions {
 async function fetcher<T>(
   resource: string,
   options?: IOptions
-): Promise<{ response: T; totalPages: number }> {
+): Promise<{ response: T; totalPages: number; total: number }> {
   const { privateToken, gitlabUrl } = parseCookies(null);
   const computedUrl = options?.customUrl || gitlabUrl;
   const computedToken = options?.customToken || privateToken;
@@ -27,8 +27,9 @@ async function fetcher<T>(
     });
     // gitlabde toplam sayfa sayısı headerda geliyor.
     const totalPages = Number(request.headers.get('x-total-pages'));
+    const total = Number(request.headers.get('x-total'));
     const response = (await request.json()) as T;
-    return { response, totalPages };
+    return { response, totalPages, total };
   } catch (error: any) {
     return error;
   }
