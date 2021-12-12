@@ -1,11 +1,21 @@
 /* eslint-disable max-len */
+
+const handleParams = (options: object | undefined) => {
+  if (options) {
+    const keys = Object.keys(options);
+    const vals = Object.values(options);
+    const params = keys.map((key, index) => `&${key}=${vals[index]}`);
+    return params.join('');
+  }
+};
+
 interface IRequest {
-  reviewer_id: number;
+  reviewer_id?: number;
   sort?: 'asc' | 'desc';
-  page: number;
-  perPage: number;
-  updatedAt: string;
-  updatedBefore: string;
+  page?: number;
+  per_page?: number;
+  updated_after?: string;
+  updated_before?: string;
 }
 
 interface IRequestDetail {
@@ -14,8 +24,10 @@ interface IRequestDetail {
 }
 const endpoints = {
   user: `/user`,
+
   request: (options?: IRequest) =>
-    '/merge_requests?scope=all&order_by=updated_at&sort=desc&view=simple&page=1&per_page=100&reviewer_id=80&updated_after=2021-11-29T21:00:00.000Z&updated_before=2021-12-31T20:59:59.999Z',
+    `/merge_requests?scope=all${handleParams(options)}`,
+
   requestDetail: (options?: IRequestDetail) =>
     `/projects/${options?.project_id}/merge_requests/${options?.iid}`,
 };
