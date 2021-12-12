@@ -1,9 +1,9 @@
+import Link from 'next/link';
 import { styled } from '@stitches/react';
-import { BranchesOutlined } from '@ant-design/icons';
 import { Layout } from 'antd';
+import { BranchesOutlined } from '@ant-design/icons';
 import { useUser } from 'hooks';
 
-import Link from 'next/link';
 import Navigation from './Navigation';
 
 const { Header: AntHeader } = Layout;
