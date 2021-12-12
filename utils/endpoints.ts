@@ -18,18 +18,18 @@ interface IRequest {
   updated_before?: string;
 }
 
-interface IRequestDetail {
-  project_id: number;
-  iid: number;
-}
+// interface IRequestDetail {
+//   project_id: number;
+//   iid: number;
+// }
 const endpoints = {
   user: `/user`,
 
   request: (options?: IRequest) =>
     `/merge_requests?scope=all${handleParams(options)}`,
-
-  requestDetail: (options?: IRequestDetail) =>
-    `/projects/${options?.project_id}/merge_requests/${options?.iid}`,
+  myOpenRequests: '/merge_requests?state=opened&scope=assigned_to_me', // Bana açılmış ve açık durumda olan requestler. Headerda kullanmak için var
+  // requestDetail: (options?: IRequestDetail) =>
+  //   `/projects/${options?.project_id}/merge_requests/${options?.iid}`,
 };
 
 export default endpoints;
