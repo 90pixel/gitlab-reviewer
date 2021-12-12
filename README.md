@@ -2,9 +2,9 @@ Bu proje ile gitlab merge requestlerinizi bir dashboard aracılığı ile yönet
 
 TODOS:
 
-- [ ] Navbar menüsü giriş yaptıktan sonra sayfayı yenilemezsen değişmiyor.
+- [x] Navbar menüsü giriş yaptıktan sonra sayfayı yenilemezsen değişmiyor.
 
-- [ ] Navbar menüsüne giriş yaptıysa avatarın gelmesi ve kişinin bilgileri ile çıkış yap butonu getirilmesi
+- [x] Navbar menüsüne giriş yaptıysa avatarın gelmesi ve kişinin bilgileri ile çıkış yap butonu getirilmesi
 
 - [ ] Default bulunduğu ay için geliyor. Tarih aralığına göre filtrelenebilinmeli
 
