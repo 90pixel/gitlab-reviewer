@@ -23,6 +23,7 @@ export interface RequestType {
   downvotes: number;
   author: User;
   assignee: User;
+  reviewers: User[];
   source_project_id: number;
   target_project_id: number;
   labels: string[];
@@ -48,4 +49,9 @@ export interface RequestType {
   squash: boolean;
   approvals_before_merge: number | null;
   pipeline: Pipeline;
+  references: {
+    full: string;
+    relative: string;
+    short: string;
+  };
 }
