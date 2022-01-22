@@ -39,7 +39,7 @@ const routeProtection = async (appContext: AppContext) => {
         ctx?.res?.writeHead(307, {
           location: '/',
         });
-        return ctx?.res?.end();
+        ctx?.res?.end();
       }
     }
   }

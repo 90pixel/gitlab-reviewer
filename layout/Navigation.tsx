@@ -33,7 +33,7 @@ const Navigation = () => {
   return (
     <StyledNavigation>
       <Link href="/" passHref>
-        <a>Home</a>
+        <a>Anasayfa</a>
       </Link>
       <button onClick={handleLogout}>Çıkış</button>
 
