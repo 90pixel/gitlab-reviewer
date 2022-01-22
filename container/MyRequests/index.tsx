@@ -1,10 +1,11 @@
-import { FC, useState } from 'react';
+import { useEffect, useState } from 'react';
 import swr, { SWRResponse } from 'swr';
 import { Table } from 'components';
 import { PersonCell } from 'components/TableCells';
 import { endpoints, dateFormat } from 'utils';
 import { useUser } from 'hooks';
 import { RequestType } from 'types/REQUESTS';
+import Filter from './Filter';
 
 const columns = [
   {
@@ -19,14 +20,14 @@ const columns = [
     key: 'repo',
   },
   {
-    title: 'Yazar',
-    dataIndex: 'author',
-    key: 'author',
-  },
-  {
     title: 'Reviewer',
     dataIndex: 'reviewer',
     key: 'reviewer',
+  },
+  {
+    title: 'Yazar',
+    dataIndex: 'author',
+    key: 'author',
   },
   {
     title: 'Oluşturulma Tarihi',
@@ -46,16 +47,34 @@ interface IResponse {
   total: number;
 }
 
-const Dashboard: FC = () => {
+function Dashboard() {
   const { user } = useUser();
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(10);
+  const [reviewerId, setReviewerId] = useState<string>();
+  const [dates, setDates] = useState({ start: '', end: '' });
+
+  useEffect(() => {
+    if (!reviewerId) {
+      setReviewerId(user?.id.toString());
+    }
+  }, [reviewerId, user]);
+
+  const handleSelectPerson = (personId: number) => {
+    setReviewerId(personId.toString());
+  };
+
+  const handleDateChange = (selectedDates: { start: string; end: string }) => {
+    setDates(selectedDates);
+  };
 
   const { data, error }: SWRResponse<IResponse, Error> = swr(
     endpoints.request({
-      per_page: perPage,
-      page: currentPage,
-      ...(user && { reviewer_id: user.id }),
+      per_page: perPage.toString(),
+      page: currentPage.toString(),
+      ...(reviewerId && { reviewer_id: reviewerId }),
+      ...(dates.start && { updated_after: dates.start }),
+      ...(dates.end && { updated_before: dates.end }),
     })
   );
 
@@ -87,6 +106,10 @@ const Dashboard: FC = () => {
   );
   return (
     <div>
+      <Filter
+        handleSelectPerson={handleSelectPerson}
+        handleDateChange={handleDateChange}
+      />
       {!data && !error ? (
         <Table dataSource={[]} columns={columns} loading />
       ) : (
@@ -94,6 +117,6 @@ const Dashboard: FC = () => {
       )}
     </div>
   );
-};
+}
 
 export default Dashboard;
